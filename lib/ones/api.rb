@@ -4,6 +4,8 @@ module Ones
   class Api
     include ApiMount
 
+    api_mount :app_center
+
     attr_reader :options
 
     def initialize(options = {})
