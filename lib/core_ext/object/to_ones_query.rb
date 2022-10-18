@@ -14,6 +14,20 @@ class NilClass
   end
 end
 
+class TrueClass
+  # Returns +self+.
+  def to_ones_param
+    self
+  end
+end
+
+class FalseClass
+  # Returns +self+.
+  def to_ones_param
+    self
+  end
+end
+
 class Array
   def to_ones_query(key)
     if empty?
@@ -21,6 +35,10 @@ class Array
     else
       collect.with_index { |value, index| value.to_ones_query("#{key}[#{index}]") }.join "&"
     end
+  end
+
+  def to_ones_param
+    collect(&:to_ones_param).join "/"
   end
 end
 

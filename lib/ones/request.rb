@@ -14,7 +14,7 @@ module Ones
 
     def initialize(skip_verify_ssl = true)
       @http = HTTP.timeout(**Ones.http_timeout_options)
-                  .auth(user: Ones.client_id, pass: Ones.client_secret)
+                  .basic_auth(user: Ones.client_id, pass: Ones.client_secret)
       @ssl_context = OpenSSL::SSL::SSLContext.new
       @ssl_context.verify_mode = OpenSSL::SSL::VERIFY_NONE if skip_verify_ssl
     end
@@ -31,6 +31,10 @@ module Ones
       end
     end
 
+    def request_uuid_in_header?
+      true
+    end
+
     private
 
     def request(http_method, path, header = {}, body = {},  &_block)
@@ -41,7 +45,7 @@ module Ones
 
       with_retries RETRY_OPTIONS do |attempts|
         request_uuid = SecureRandom.uuid
-        header['X-Request-ID'] = request_uuid
+        header['X-Request-ID'] = request_uuid if request_uuid_in_header?
 
         Ones.logger.info "[#{request_uuid}] #{http_method.upcase} request ( #{path} ) in attempts: #{attempts}"
 
@@ -109,7 +113,7 @@ module Ones
     attr_reader :code, :data
 
     def initialize(data)
-      @code = data['code'].to_i
+      @code = data['code'].to_i rescue 0
       @data = data
     end
 
