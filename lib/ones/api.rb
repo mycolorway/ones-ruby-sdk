@@ -8,6 +8,7 @@ module Ones
     api_mount :org
     api_mount :user
     api_mount :team
+    api_mount :department
 
     attr_reader :options
 

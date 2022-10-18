@@ -56,4 +56,19 @@ class UserApiTest < Minitest::Test
     assert_equal ['1a2b3c3d'], result.data.dig('xxxxyyyy')
     assert_equal ['1a2b3c4d'], result.data.dig('aaaabbbb')
   end
+
+  def test_departments_api
+    response_body = {
+      aaaabbbb: ['1a2b3c4d'],    # key为userUUID, value为teamUUID
+      xxxxyyyy: ['MNZj4TvY']
+    }
+
+    stub_request(:post, %r[appcenter/team/team_uuid/department_member/batch])
+      .with(body: { user_uuids: %w[xxxxyyyy aaaabbbb] })
+      .to_return(status: 200, body: response_body.to_json)
+
+    result = Ones::Api.default.user.departments('team_uuid', %w[xxxxyyyy aaaabbbb])
+    assert_equal ['MNZj4TvY'], result.data.dig('xxxxyyyy')
+    assert_equal ['1a2b3c4d'], result.data.dig('aaaabbbb')
+  end
 end
