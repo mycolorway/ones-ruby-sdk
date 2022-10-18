@@ -5,6 +5,7 @@ module Ones
     include ApiMount
 
     api_mount :app_center
+    api_mount :org
 
     attr_reader :options
 
