@@ -41,4 +41,19 @@ class UserApiTest < Minitest::Test
     assert_equal 'DU6krHBN0', result.data.dig('xxxxyyyy', 'uuid')
     assert_equal 'DU6krHBN1', result.data.dig('aaaabbbb', 'uuid')
   end
+
+  def test_teams_api
+    response_body = {
+      aaaabbbb: ['1a2b3c4d'],    # key为userUUID, value为teamUUID
+      xxxxyyyy: ['1a2b3c3d']
+    }
+
+    stub_request(:post, %r[appcenter/org/org_uuid/team_member/batch])
+      .with(body: { user_uuids: %w[xxxxyyyy aaaabbbb] })
+      .to_return(status: 200, body: response_body.to_json)
+
+    result = Ones::Api.default.user.teams('org_uuid', %w[xxxxyyyy aaaabbbb])
+    assert_equal ['1a2b3c3d'], result.data.dig('xxxxyyyy')
+    assert_equal ['1a2b3c4d'], result.data.dig('aaaabbbb')
+  end
 end

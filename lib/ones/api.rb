@@ -7,6 +7,7 @@ module Ones
     api_mount :app_center
     api_mount :org
     api_mount :user
+    api_mount :team
 
     attr_reader :options
 
