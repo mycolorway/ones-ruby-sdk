@@ -17,7 +17,11 @@ module Ones
 
       def request(http_method, path, header = {}, &_block)
         base_query = header.delete(:params) || {}
-        url = URI.join(Ones.api_base_url, "#{path}?#{base_query.to_query}")
+        url = if base_query.present?
+                URI.join(Ones.api_base_url, "#{path}?#{base_query.to_query}")
+              else
+                URI.join(Ones.api_base_url, path)
+              end
         as = header.delete(:as)
         header['Content-Type'] = 'application/json'
         header['Ones-User-Id'] = client.client_id

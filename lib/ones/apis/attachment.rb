@@ -6,7 +6,7 @@ module Ones
         post "project/api/project/team/#{team_uuid}/res/attachments/upload", {
           type: :attachment,
           ref_type: params[:ref_type].presence || :user,
-          ref_id: params[:ref_id].presence || client_secret,
+          ref_id: params[:ref_id].presence || client_id,
           name: params[:name],
           hash: params[:hash],
           description: params[:description]
@@ -25,6 +25,8 @@ module Ones
         Ones.logger.info "[#{request_uuid}][#{request.api_mode}] form data: #{ form_data }"
         response = request.http.headers(header).post(upload_url, form: HTTP::FormData::Multipart.new(form_data))
         request.handle_response(request_uuid, response, :json)
+      rescue ResponseError => e
+        e.error_code == 579 ? Ones::Requests::Result.new({ code: 579, message: 'file exists'}) : raise(e)
       end
 
       # 获取附件资源

@@ -38,9 +38,8 @@ module Ones
       def handle_response(request_uuid, response, as)
         Ones.logger.info "[#{request_uuid}][#{api_mode}] response headers: #{response.headers.inspect}"
 
-        raise Ones::ServerError if response.status.server_error?
         unless response.status.success?
-          Ones.logger.error "[#{request_uuid}][#{api_mode}] happen error: #{response.body}"
+          Ones.logger.error "[#{request_uuid}][#{api_mode}] happen error #{response.code}: #{response.body}"
           raise ResponseError.new(response.status, response.body)
         end
 
