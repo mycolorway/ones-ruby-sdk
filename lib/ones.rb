@@ -1,4 +1,3 @@
-require 'redis'
 require 'retries'
 require 'active_support/all'
 require "#{File.dirname(__FILE__)}/core_ext/object/to_ones_query.rb"

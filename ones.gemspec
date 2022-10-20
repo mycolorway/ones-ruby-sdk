@@ -24,7 +24,6 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'http', '>= 2.2'
   s.add_dependency 'activesupport', '>= 5.0'
-  s.add_dependency 'redis'
   s.add_dependency 'retries'
 
   s.add_development_dependency "bundler", ">= 1.13"

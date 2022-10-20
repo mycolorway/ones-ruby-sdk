@@ -10,10 +10,6 @@ module Ones
       @config ||= Config.new
     end
 
-    def redis
-      config.redis
-    end
-
     def logger
       @logger ||= if config.logger.nil?
                     defined?(Rails) && Rails.logger ? Rails.logger : Logger.new(STDOUT)
@@ -52,6 +48,6 @@ module Ones
   end
 
   class Config
-    attr_accessor :default_client_id, :default_client_secret, :app_center_base_url, :api_base_url, :redis, :http_timeout_options, :logger
+    attr_accessor :default_client_id, :default_client_secret, :app_center_base_url, :api_base_url, :http_timeout_options, :logger
   end
 end
