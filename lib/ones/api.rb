@@ -1,5 +1,3 @@
-require 'ones/request'
-
 module Ones
   class Api
     include ApiMount
@@ -10,14 +8,17 @@ module Ones
     api_mount :team
     api_mount :department
 
-    attr_reader :options
+    attr_reader :client_id, :client_secret, :mode, :options
 
     def initialize(options = {})
+      @client_id = options.delete(:client_id) || Ones.client_id
+      @client_secret = options.delete(:client_secret) || Ones.client_secret
+      @mode = options.delete(:mode) || :app_center
       @options = options
     end
 
     def request
-      @request ||= Ones::Request.new
+      @request ||= "Ones::Requests::#{@mode.to_s.camelize}Request".constantize.new(self)
     end
 
     def get(path, headers = {})
@@ -32,7 +33,7 @@ module Ones
 
     class << self
       def default
-        @default ||= new
+        @default ||= new(mode: :app_center)
       end
     end
   end
