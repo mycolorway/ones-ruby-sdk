@@ -31,7 +31,9 @@ module Ones
         true
       end
 
-      private
+      def api_mode
+        self.class.name.demodulize
+      end
 
       def handle_response(request_uuid, response, as)
         Ones.logger.info "[#{request_uuid}][#{api_mode}] response headers: #{response.headers.inspect}"
@@ -60,6 +62,8 @@ module Ones
         end
       end
 
+      private
+
       def parse_as_json(body)
         data = JSON.parse body.to_s
         result = Result.new(data)
@@ -76,10 +80,6 @@ module Ones
         file.close
 
         file
-      end
-
-      def api_mode
-        self.class.name.demodulize
       end
     end
   end
