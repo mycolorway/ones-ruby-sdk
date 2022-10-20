@@ -9,7 +9,6 @@ Gem::Specification.new do |s|
   s.summary       = %q{Ones Open API SDKs for ruby}
   s.description   = %q{Ones Open API SDKs for ruby https://docs.partner.ones.cn/zh-CN/}
 
-  s.files       = ["lib/ones.rb"]
   s.homepage    =
     "https://github.com/mycolorway/ones-ruby-sdk"
   s.license       = "MIT"
