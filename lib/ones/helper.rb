@@ -10,7 +10,7 @@ module Ones
           http_method.upcase,
           "/#{path}",
           params.to_ones_query,
-          Ones.client_secret
+          client.client_secret
         ].join('|')
         [string_to_sign, OpenSSL::HMAC.hexdigest('SHA1', client.client_secret, string_to_sign)]
       end

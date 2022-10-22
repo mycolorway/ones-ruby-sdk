@@ -10,5 +10,5 @@ end
 task :default => :test
 
 task :console do
-  sh 'irb -I lib -r lark.rb'
+  sh 'irb -I lib -r ones.rb'
 end
