@@ -2,15 +2,15 @@ module Ones
   module Apis
     module Attachment
       # 上传资源
-      def create(team_uuid, params = {})
+      def create(team_uuid, params = {}, header = {})
         post "project/api/project/team/#{team_uuid}/res/attachments/upload", {
           type: :attachment,
-          ref_type: params[:ref_type].presence || :user,
+          ref_type: params[:ref_type].presence || :app,
           ref_id: params[:ref_id].presence || client_id,
           name: params[:name],
           hash: params[:hash],
           description: params[:description]
-        }.compact
+        }.compact, header
       end
 
       # 上传文件
@@ -30,8 +30,8 @@ module Ones
       end
 
       # 获取附件资源
-      def fetch(team_uuid, attachment_uuid, params = {})
-        get "project/api/project/team/#{team_uuid}/res/attachment/#{attachment_uuid}", params: params
+      def fetch(team_uuid, attachment_uuid, header = {})
+        get "project/api/project/team/#{team_uuid}/res/attachment/#{attachment_uuid}", header
       end
     end
   end
