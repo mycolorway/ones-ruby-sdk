@@ -9,6 +9,6 @@ require 'ones/error'
 require 'ones/helper'
 
 lib_path = "#{File.dirname(__FILE__)}/ones"
-Dir["#{lib_path}/apis/**/*.rb", "#{lib_path}/requests/**/*.rb"].each { |path| require path }
+Dir["#{lib_path}/apis/**/*.rb", "#{lib_path}/requests/*.rb"].each { |path| require path }
 
 require 'ones/api'

@@ -1,4 +1,5 @@
 require 'core_ext/object/to_ones_query'
+require 'ones/requests/base'
 
 module Ones
   module Requests

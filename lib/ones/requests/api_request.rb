@@ -1,3 +1,5 @@
+require 'ones/requests/base'
+
 module Ones
   module Requests
     class ApiRequest < Base
