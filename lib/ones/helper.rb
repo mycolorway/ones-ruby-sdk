@@ -2,7 +2,8 @@ module Ones
   class Helper
     class << self
       def generate_signature(client, http_method, ts, path, base_query, header, body)
-        header = header.reject { |k, _v| %w[Accept].include?(k) }
+        # 10-27 日讨论，header 不参与签名运算
+        header = {} # header.reject { |k, _v| %w[Accept].include?(k) }
         params = base_query.merge(header).merge(body)
         string_to_sign = [
           client.client_id,
