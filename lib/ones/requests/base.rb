@@ -38,7 +38,7 @@ module Ones
       def handle_response(request_uuid, response, as)
         Ones.logger.info "[#{request_uuid}][#{api_mode}] response headers: #{response.headers.inspect}"
 
-        unless response.status.success?
+        if response.status.server_error?
           Ones.logger.error "[#{request_uuid}][#{api_mode}] happen error #{response.code}: #{response.body}"
           raise ResponseError.new(response.status, response.body)
         end
@@ -65,11 +65,7 @@ module Ones
 
       def parse_as_json(body)
         data = JSON.parse body.to_s
-        result = Result.new(data)
-
-        raise ::Ones::AccessTokenExpiredError if result.access_token_expired?
-
-        result
+        Result.new(data)
       end
 
       def parse_as_file(body)
