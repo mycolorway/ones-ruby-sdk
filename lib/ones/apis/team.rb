@@ -11,6 +11,11 @@ module Ones
       def batch(org_uuid, team_uuids)
         get "app_center/org/#{org_uuid}/team/batch", params: { team_uuids: team_uuids.join(',') }
       end
+
+      # 获取应用管理员列表
+      def app_admin(team_uuid)
+        get "app_center/team/#{team_uuid}/permission/app_admin"
+      end
     end
   end
 end
