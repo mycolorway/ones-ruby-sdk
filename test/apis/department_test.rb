@@ -38,7 +38,7 @@ module Apis
         }
       ]
 
-      stub_request(:get, %r[appcenter/team/team_uuid/departments]).to_return(status: 200, body: response_body.to_json)
+      stub_request(:get, %r[app_center/team/team_uuid/departments]).to_return(status: 200, body: response_body.to_json)
 
       result = Ones::Api.default.department.list('team_uuid')
       assert_equal 4, result.data.size

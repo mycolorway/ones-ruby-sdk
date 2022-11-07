@@ -34,7 +34,7 @@ module Apis
         }
       }
 
-      stub_request(:post, %r[appcenter/org/org_uuid/user/batch])
+      stub_request(:post, %r[app_center/org/org_uuid/user/batch])
         .with(body: { user_uuids: %w[xxxxyyyy aaaabbbb] })
         .to_return(status: 200, body: response_body.to_json)
 
@@ -49,7 +49,7 @@ module Apis
         xxxxyyyy: ['1a2b3c3d']
       }
 
-      stub_request(:post, %r[appcenter/org/org_uuid/team_member/batch])
+      stub_request(:post, %r[app_center/org/org_uuid/team_member/batch])
         .with(body: { user_uuids: %w[xxxxyyyy aaaabbbb] })
         .to_return(status: 200, body: response_body.to_json)
 
@@ -64,7 +64,7 @@ module Apis
         xxxxyyyy: ['MNZj4TvY']
       }
 
-      stub_request(:post, %r[appcenter/team/team_uuid/department_member/batch])
+      stub_request(:post, %r[app_center/team/team_uuid/department_member/batch])
         .with(body: { user_uuids: %w[xxxxyyyy aaaabbbb] })
         .to_return(status: 200, body: response_body.to_json)
 

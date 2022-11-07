@@ -27,7 +27,7 @@ module Apis
         }
       ]
 
-      stub_request(:get, %r[appcenter/org/org_uuid/teams]).to_return(status: 200, body: response_body.to_json)
+      stub_request(:get, %r[app_center/org/org_uuid/teams]).to_return(status: 200, body: response_body.to_json)
 
       result = Ones::Api.default.team.list('org_uuid')
       assert_equal 2, result.data.size
@@ -60,7 +60,7 @@ module Apis
         }
       }
 
-      stub_request(:post, %r[appcenter/org/org_uuid/team_member/batch])
+      stub_request(:post, %r[app_center/org/org_uuid/team_member/batch])
         .with(body: { user_uuids: ["aaaabbbb","xxxxyyyy"] },)
         .to_return(status: 200, body: response_body.to_json)
 

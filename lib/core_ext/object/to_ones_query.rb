@@ -45,9 +45,8 @@ end
 class Hash
   def to_ones_query(namespace = nil)
     query = collect do |key, value|
-      unless (value.is_a?(Hash) || value.is_a?(Array)) && value.empty?
-        value.to_ones_query(namespace ? "#{namespace}[#{key}]" : key)
-      end
+      value = "" if (value.is_a?(Hash) || value.is_a?(Array)) && value.empty?
+      value.to_ones_query(namespace ? "#{namespace}[#{key}]" : key)
     end.compact
 
     query.sort! unless namespace.to_s.include?("[]")
