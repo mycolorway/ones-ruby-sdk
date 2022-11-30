@@ -17,7 +17,7 @@ module Apis
         "org_uuid": "AbsatFo2",
         "language": "zh"
       }
-      stub_request(:post, %r[/app_center/check_user]).to_return(status: 200, body: response_body.to_json)
+      stub_request(:post, %r[/app_platform/open_api/check_user]).to_return(status: 200, body: response_body.to_json)
       result = Ones::Api.default.app_center.check_user('user_uuid', 'token')
       assert_equal 'DU6krHBN', result.data.dig('uuid')
     end
