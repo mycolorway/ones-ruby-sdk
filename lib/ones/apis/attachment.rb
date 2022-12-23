@@ -32,7 +32,13 @@ module Ones
 
       # 获取附件资源
       def fetch(team_uuid, attachment_uuid, header = {})
-        get "project/api/project/team/#{team_uuid}/res/attachment/#{attachment_uuid}", header
+        base_query = header.delete(:params) || {}
+        attachment_url = if base_query.present?
+                           "project/api/project/team/#{team_uuid}/res/attachment/#{attachment_uuid}?#{base_query.to_query}"
+                         else
+                           "project/api/project/team/#{team_uuid}/res/attachment/#{attachment_uuid}"
+                         end
+        get attachment_url, header
       end
     end
   end
