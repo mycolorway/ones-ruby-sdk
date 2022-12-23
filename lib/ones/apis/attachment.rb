@@ -7,6 +7,7 @@ module Ones
           type: :attachment,
           ref_type: params[:ref_type].presence || :app,
           ref_id: params[:ref_id].presence || client_id,
+          ctype: params[:ctype],
           name: params[:name],
           hash: params[:hash],
           description: params[:description]
