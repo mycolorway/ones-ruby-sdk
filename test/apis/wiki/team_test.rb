@@ -44,6 +44,21 @@ module Apis
         assert_equal [], result.data['templates']
       end
 
+      def test_recent_templates_api
+        response_body = {
+          "total": 0,
+          "start": 0,
+          "count": 0,
+          "templates": [],
+          "categories": nil
+        }
+
+        stub_request(:get, %r[project/api/wiki/team/team_uuid/recent_templates]).to_return(status: 200, body: response_body.to_json)
+        result = $ones_api.wiki_team.recent_templates('team_uuid')
+        assert_equal 0, result.data['total']
+        assert_equal [], result.data['templates']
+      end
+
       def test_limit_api
         response_body = {
           "is_over_page_limit": false,

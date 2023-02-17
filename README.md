@@ -102,6 +102,9 @@ $ones_api.wiki_team.evaluated_permissions('team_uuid')
 # 全局模版
 $ones_api.wiki_team.templates('team_uuid')
 
+# 最新使用模版
+$ones_api.wiki_team.recent_templates('team_uuid')
+
 # 团队创建页面的数量限制
 $ones_api.wiki_team.limit('team_uuid')
 
