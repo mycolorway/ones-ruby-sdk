@@ -113,6 +113,39 @@ $ones_api.wiki_space.list('team_uuid')
 # 获取页面组模版
 $ones_api.wiki_space.templates('team_uuid', 'space_uuid')
 
+
+# -------------------- Wiki 页面 --------------------
+#
+# 获取页面组内所有页面
+$ones_api.wiki_page.list('team_uuid', 'space_uuid')
+
+# 检查页面状态
+$ones_api.wiki_page.check_status('team_uuid', ['7mG12EWa'])
+
+# 创建 Wiki 协同页面
+$ones_api.wiki_page.create_wiz(
+  'team_uuid',
+  title: "创建 Wiki 协同页面",
+  space_uuid: 'space_uuid',
+  parent_uuid: 'parent_uuid'
+)
+
+# 创建 Wiki 页面
+$ones_api.wiki_page.create_wiki(
+  'team_uuid',
+  title: "创建 Wiki 页面",
+  space_uuid: 'space_uuid',
+  parent_uuid: 'parent_uuid'
+)
+
+# 导入 Wiki 协同页面: type 为 wiz
+# 导入 Wiki 页面: type 为 word
+$ones_api.wiki_page.import(
+  'team_uuid',
+  parent_uuid: 'parent_uuid',
+  resource_uuid: 'resource_uuid'
+)
+
 ```
 
 
