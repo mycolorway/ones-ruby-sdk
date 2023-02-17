@@ -43,5 +43,30 @@ module Apis
       assert_equal 2, result.data.size
       assert_equal ["xxxxyyyy", "aaaabbbb"], result.data
     end
+
+    def test_stamps_data_api
+      response_body = {
+        "org_configs": {
+          "configs": [
+            {
+              "type": "wps_config",
+              "data": "{\"app_id\":\"AK20220613GULYER\",\"app_key\":\"14ad95640f15051c435937899fabfbf5\",\"wps_mid_url\":\"https://editzt.ones.ai\",\"preview_url\":\"\",\"server_list\":[\"https://editzt.ones.ai/office\"]}"
+            },
+            {
+              "type": "wiz_config",
+              "data": "{\"enable\":true,\"max_online_users_count\":100}"
+            },
+            {
+              "type": "wiki_config",
+              "data": "{\"enable\":false}"
+            }
+          ],
+          "server_update_stamp": 1659954824631095
+        }
+      }
+      stub_request(:post, %r[project/api/project/organization/org_uuid/stamps/data]).to_return(status: 200, body: response_body.to_json)
+      result = $ones_api.org.stamps_data('org_uuid')
+      assert_equal response_body, result.data.deep_symbolize_keys!
+    end
   end
 end
