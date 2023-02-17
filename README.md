@@ -104,6 +104,15 @@ $ones_api.wiki_team.templates('team_uuid')
 
 # 团队创建页面的数量限制
 $ones_api.wiki_team.limit('team_uuid')
+
+# -------------------- Wiki 页面组 --------------------
+#
+# 获取页面组列表
+$ones_api.wiki_space.list('team_uuid')
+
+# 获取页面组模版
+$ones_api.wiki_space.templates('team_uuid', 'space_uuid')
+
 ```
 
 
