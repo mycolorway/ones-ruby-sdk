@@ -92,6 +92,18 @@ $ones_api = Ones::Api.new(client_id: 'user_uuid', client_secret: 'token', mode: 
 # 获取组织的业务配置
 # Wiki 相关主要关注：wps_config、wiz_config、wiki_config
 $ones_api.org.stamps_data('org_uuid')
+
+
+# -------------------- Wiki 团队 --------------------
+#
+# 查看团队类资源权限列表，主要关注资源类型为页面组的权限 context_type：space
+$ones_api.wiki_team.evaluated_permissions('team_uuid')
+
+# 全局模版
+$ones_api.wiki_team.templates('team_uuid')
+
+# 团队创建页面的数量限制
+$ones_api.wiki_team.limit('team_uuid')
 ```
 
 
