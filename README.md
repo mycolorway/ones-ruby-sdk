@@ -93,6 +93,13 @@ $ones_api = Ones::Api.new(client_id: 'user_uuid', client_secret: 'token', mode: 
 # Wiki 相关主要关注：wps_config、wiz_config、wiki_config
 $ones_api.org.stamps_data('org_uuid')
 
+# -------------------- 用户 --------------------
+#
+# 获取用户授权信息，其中包含应用授权情况
+$ones_api.auth.token_info
+
+# 获取任务管理器列表
+$ones_api.user.token_info
 
 # -------------------- Wiki 团队 --------------------
 #

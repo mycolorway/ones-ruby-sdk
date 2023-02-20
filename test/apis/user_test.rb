@@ -72,5 +72,39 @@ module Apis
       assert_equal ['MNZj4TvY'], result.data.dig('xxxxyyyy')
       assert_equal ['1a2b3c4d'], result.data.dig('aaaabbbb')
     end
+
+    def test_queue_list_api
+      response_body = {
+        "batch_tasks": [
+          {
+            "uuid": "Tpzv8743",
+            "team_uuid": "Gt1wX8M2",
+            "owner": "2Rn8jQN2",
+            "job_type": "import_wps",
+            "job_status": "done",
+            "batch_type": "none",
+            "status": "show",
+            "start_time": 1676533119,
+            "end_time": 1676533120,
+            "extra": "{\"resource_uuid\":\"WHajJU6f\",\"backup_file_url\":\"\",\"err_record_file_path\":\"\",\"backup_file_name\":\"Archive 2.zip\",\"ref_id\":\"\",\"space_uuid\":\"PDErYCSh\",\"page_uuid\":\"CYtrBvTw\",\"token\":\"svQaxLVOCqbilcNi2zf6RZYd0NAYwBKvE4rzOEJX5FeifFghZVJ1RQXL09qAuVVM\",\"post_actions\":[{\"action\":\"bind_task\",\"args\":{\"task_uuid\":\"PaYNBtv9RoKtUsqj\"}}]}",
+            "payload": "",
+            "successful_count": 2,
+            "unsuccessful_count": 0,
+            "unprocessed_count": 0,
+            "sub_tasks_map": "",
+            "errors_affect_count": nil,
+            "successful": 2,
+            "unsuccessful": 0,
+            "unprocessed": 0,
+            "successful_objects": []
+          },
+        ]
+      }
+
+      stub_request(:get, %r[project/api/project/team/team_uuid/queues/list]).to_return(status: 200, body: response_body.to_json)
+
+      result = $ones_api.user.queue_list('team_uuid')
+      assert_equal 1, result.data.dig('batch_tasks').size
+    end
   end
 end
