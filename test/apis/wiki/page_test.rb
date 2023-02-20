@@ -117,18 +117,75 @@ module Apis
         assert_equal '8VYfX2FD', result.data['uuid']
       end
 
-      def test_import_api
+      def test_create_wps_api
+        response_body = {
+          "uuid": "X2njECFr",
+          "team_uuid": "RDjYMhKq",
+          "space_uuid": "sAu71Zfs",
+          "owner_uuid": "NjXc5i8T",
+          "title": "创建的 Wiki 文稿",
+          "parent_uuid": "R7bTMyWa",
+          "status": 1,
+          "position": 783030,
+          "create_time": 1676019989,
+          "updated_time": 1676019989,
+          "old_parent_uuid": "",
+          "old_previous_uuid": "",
+          "encrypt_status": 1,
+          "ref_type": 2,
+          "ref_uuid": "9vw4CP3u",
+          "edit_users": ""
+        }
+
+        stub_request(:post, %r[project/api/wiki/team/team_uuid/space/space_uuid/page_add]).to_return(status: 200, body: response_body.to_json)
+        result = $ones_api.wiki_page.create_wps('team_uuid', title: "创建文稿", space_uuid: 'space_uuid', parent_uuid: 'parent_uuid', src_uuid: 'wps-word')
+        assert_equal 'X2njECFr', result.data['uuid']
+      end
+
+      def test_import_wiz_api
         response_body = {
           "code": 200,
           "errcode": "OK",
           "type": "OK"
         }
         stub_request(:post, %r[project/api/wiki/team/team_uuid/word/import]).to_return(status: 200, body: response_body.to_json)
-        result = $ones_api.wiki_page.import('team_uuid', parent_uuid: 'parent_uuid', resource_uuid: 'resource_uuid')
+        result = $ones_api.wiki_page.import_wiz('team_uuid', parent_uuid: 'parent_uuid', resource_uuid: 'resource_uuid')
         assert_equal 200, result.data['code']
+      end
 
-        result = $ones_api.wiki_page.import('team_uuid', parent_uuid: 'parent_uuid', resource_uuid: 'resource_uuid', type: :word)
+      def test_import_wiki_api
+        response_body = {
+          "code": 200,
+          "errcode": "OK",
+          "type": "OK"
+        }
+        stub_request(:post, %r[project/api/wiki/team/team_uuid/word/import]).to_return(status: 200, body: response_body.to_json)
+        result = $ones_api.wiki_page.import_wiki('team_uuid', parent_uuid: 'parent_uuid', resource_uuid: 'resource_uuid')
         assert_equal 200, result.data['code']
+      end
+
+      def test_import_wps_api
+        response_body = {
+          "uuid": "SAEviawz",
+          "team_uuid": "RDjYMhKq",
+          "space_uuid": "sAu71Zfs",
+          "owner_uuid": "NjXc5i8T",
+          "title": "文字文稿1",
+          "parent_uuid": "R7bTMyWa",
+          "status": 1,
+          "position": 1018364,
+          "create_time": 1676020349,
+          "updated_time": 1676020349,
+          "old_parent_uuid": "",
+          "old_previous_uuid": "",
+          "encrypt_status": 1,
+          "ref_type": 2,
+          "ref_uuid": "2uaA24Xs",
+          "edit_users": ""
+        }
+        stub_request(:post, %r[project/api/wiki/team/team_uuid/space/space_uuid/import_wps]).to_return(status: 200, body: response_body.to_json)
+        result = $ones_api.wiki_page.import_wps('team_uuid', space_uuid: 'space_uuid', parent_uuid: 'parent_uuid', resource_uuid: 'resource_uuid')
+        assert_equal 'SAEviawz', result.data['uuid']
       end
     end
   end

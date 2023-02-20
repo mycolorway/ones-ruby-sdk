@@ -42,12 +42,36 @@ module Ones
                }
         end
 
-        # 导入 Wiki 协同页面: type 为 wiz
-        # 导入 Wiki 页面: type 为 word
-        # 异步接口
-        def import(team_uuid, parent_uuid:, resource_uuid:, type: :wiz)
+        # 创建 WPS 页面：文稿、表格、幻灯片
+        # 其中 src_uuid 取值: wps-word、wps-sheet、wps-ppt
+        def create_wps(team_uuid, title:, space_uuid:, parent_uuid:, src_type: 'template', src_uuid: 'wps-word')
+          post "project/api/wiki/team/#{team_uuid}/space/#{space_uuid}/page_add",
+               {
+                 page_uuid: parent_uuid,
+                 title: title,
+                 src_type: src_type,
+                 src_uuid: src_uuid
+               }
+        end
+
+        # 「异步接口」导入 Wiki 协同页面
+        def import_wiz(team_uuid, parent_uuid:, resource_uuid:)
           post "project/api/wiki/team/#{team_uuid}/word/import",
-               { type: type, ref_id: parent_uuid, resource_uuids: [resource_uuid] }
+               { type: :wiz, ref_id: parent_uuid, resource_uuids: [resource_uuid] }
+        end
+
+
+        # 「异步接口」导入 Wiki 页面
+        def import_wiki(team_uuid, parent_uuid:, resource_uuid:)
+          post "project/api/wiki/team/#{team_uuid}/word/import",
+               { type: :word, ref_id: parent_uuid, resource_uuids: [resource_uuid] }
+        end
+
+
+        # 「同步接口」导入办公协同文件
+        def import_wps(team_uuid, space_uuid:, parent_uuid:, resource_uuid:)
+          post "project/api/wiki/team/#{team_uuid}/space/#{space_uuid}/import_wps",
+               { resource_uuid: resource_uuid, page_uuid: parent_uuid }
         end
       end
     end

@@ -141,14 +141,36 @@ $ones_api.wiki_page.create_wiki(
   parent_uuid: 'parent_uuid'
 )
 
-# 导入 Wiki 协同页面: type 为 wiz
-# 导入 Wiki 页面: type 为 word
-$ones_api.wiki_page.import(
+# 创建文稿（wps-word）、表格（wps-sheet）、幻灯片（wps-ppt）
+$ones_api.wiki_page.create_wiki(
+  'team_uuid',
+  title: "创建文稿",
+  space_uuid: 'space_uuid',
+  parent_uuid: 'parent_uuid',
+  src_uuid: 'wps-word'
+)
+
+# 导入 Wiki 协同页面
+$ones_api.wiki_page.import_wiz(
   'team_uuid',
   parent_uuid: 'parent_uuid',
   resource_uuid: 'resource_uuid'
 )
 
+# 导入 Wiki 页面
+$ones_api.wiki_page.import_wiki(
+  'team_uuid',
+  parent_uuid: 'parent_uuid',
+  resource_uuid: 'resource_uuid'
+)
+
+# 导入办公协同页面
+$ones_api.wiki_page.import_wps(
+  'team_uuid',
+  space_uuid: space_uuid,
+  parent_uuid: 'parent_uuid',
+  resource_uuid: 'resource_uuid'
+)
 ```
 
 
