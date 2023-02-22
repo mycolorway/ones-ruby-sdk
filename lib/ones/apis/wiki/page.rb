@@ -7,9 +7,7 @@ module Ones
         # PageStructureStatusDeleted = 2
         # PageStructureStatusInRecycler = 3
         def list(team_uuid, space_uuid, status: 1)
-          post "project/api/wiki/team/#{team_uuid}/space/#{space_uuid}/pages",
-               {},
-               { params: { status: status } }
+          get "project/api/wiki/team/#{team_uuid}/space/#{space_uuid}/pages?status=#{status}"
         end
 
         # 检查页面状态
