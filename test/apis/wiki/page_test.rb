@@ -21,7 +21,7 @@ module Apis
           }
         ]
 
-        stub_request(:post, %r[project/api/wiki/team/team_uuid/space/space_uuid/pages\?status=1]).to_return(status: 200, body: response_body.to_json)
+        stub_request(:get, %r[project/api/wiki/team/team_uuid/space/space_uuid/pages\?status=1]).to_return(status: 200, body: response_body.to_json)
         result = $ones_api.wiki_page.list('team_uuid', 'space_uuid')
         assert_equal 1, result.data.size
         assert_equal 'Fpi4rcHw', result.data.first['uuid']
@@ -186,6 +186,52 @@ module Apis
         stub_request(:post, %r[project/api/wiki/team/team_uuid/space/space_uuid/import_wps]).to_return(status: 200, body: response_body.to_json)
         result = $ones_api.wiki_page.import_wps('team_uuid', space_uuid: 'space_uuid', parent_uuid: 'parent_uuid', resource_uuid: 'resource_uuid')
         assert_equal 'SAEviawz', result.data['uuid']
+      end
+
+      def test_share_list_api
+        response_body = {
+          "share_pages": [
+            {
+              "team_uuid": "RDjYMhKq",
+              "space_uuid": "Ct1UCpDV",
+              "share_uuid": "91Kzebai",
+              "page_uuid": "RHNTTCft",
+              "parent_uuid": "",
+              "title": "信创适配认证记录",
+              "user_uuid": "RbVH2GV9",
+              "share_permission_type": 1,
+              "is_share_sub_page": true,
+              "share_time": 1677637028,
+              "ref_type": 6,
+              "ref_uuid": "Lo1goG5u"
+            }
+          ]
+        }
+        stub_request(:get, %r[project/api/wiki/team/team_uuid/share_all_pages\?include_sub_pages=false]).to_return(status: 200, body: response_body.to_json)
+        result = $ones_api.wiki_page.share_list('team_uuid')
+        assert_equal '91Kzebai', result.data['share_pages'][0]['share_uuid']
+
+        response_body = {
+          "share_pages": [
+            {
+              "team_uuid": "RDjYMhKq",
+              "space_uuid": "Ct1UCpDV",
+              "share_uuid": "91Kzebai",
+              "page_uuid": "RHNTTCft",
+              "parent_uuid": "",
+              "title": "信创适配认证记录",
+              "user_uuid": "RbVH2GV9",
+              "share_permission_type": 1,
+              "is_share_sub_page": true,
+              "share_time": 1677637028,
+              "ref_type": 6,
+              "ref_uuid": "Lo1goG5u"
+            }
+          ]
+        }
+        stub_request(:get, %r[project/api/wiki/team/team_uuid/share/share_uuid/pages]).to_return(status: 200, body: response_body.to_json)
+        result = $ones_api.wiki_page.share_list('team_uuid', share_uuid: 'share_uuid')
+        assert_equal 'RHNTTCft', result.data['share_pages'][0]['page_uuid']
       end
     end
   end

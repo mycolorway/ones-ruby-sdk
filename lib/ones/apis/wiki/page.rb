@@ -71,6 +71,16 @@ module Ones
           post "project/api/wiki/team/#{team_uuid}/space/#{space_uuid}/import_wps",
                { resource_uuid: resource_uuid, page_uuid: parent_uuid }
         end
+
+        # 获取与我共享的页面信息
+        def share_list(team_uuid, share_uuid: nil)
+          share_url = if share_uuid.present?
+                        "project/api/wiki/team/#{team_uuid}/share/#{share_uuid}/pages"
+                      else
+                        "project/api/wiki/team/#{team_uuid}/share_all_pages?include_sub_pages=false"
+                      end
+          get share_url
+        end
       end
     end
   end
