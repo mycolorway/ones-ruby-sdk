@@ -19,6 +19,11 @@ module Ones
           get "project/api/wiki/team/#{team_uuid}/recent_templates"
         end
 
+        # 获取模版信息
+        def templates(team_uuid, template_uuid)
+          get "project/api/wiki/team/#{team_uuid}/template/#{template_uuid}"
+        end
+
         # 团队创建页面的数量限制
         def limit(team_uuid)
           get "project/api/wiki/team/#{team_uuid}/team_space_limit"
