@@ -20,7 +20,7 @@ module Ones
         end
 
         # 获取模版信息
-        def templates(team_uuid, template_uuid)
+        def template(team_uuid, template_uuid)
           get "project/api/wiki/team/#{team_uuid}/template/#{template_uuid}"
         end
 
