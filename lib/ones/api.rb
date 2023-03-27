@@ -8,6 +8,10 @@ module Ones
     api_mount :team
     api_mount :department
     api_mount :attachment
+    api_mount :auth
+    api_mount 'wiki/team'
+    api_mount 'wiki/space'
+    api_mount 'wiki/page'
 
     attr_reader :client_id, :client_secret, :mode, :options
 

@@ -18,6 +18,10 @@ module Ones
       def departments(team_uuid, user_uuids)
         post "app_platform/open_api/team/#{team_uuid}/department_member/batch", { user_uuids: user_uuids }
       end
+
+      def queue_list(team_uuid)
+        get "project/api/project/team/#{team_uuid}/queues/list"
+      end
     end
   end
 end

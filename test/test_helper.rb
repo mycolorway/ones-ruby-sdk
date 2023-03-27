@@ -13,3 +13,5 @@ Ones.configure do |config|
 
   config.http_timeout_options  = { write: 2, connect: 5, read: 15 }
 end
+
+$ones_api = Ones::Api.new(client_id: :user_id, client_secret: :user_token, mode: :api)
