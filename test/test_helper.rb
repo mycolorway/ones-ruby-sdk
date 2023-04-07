@@ -7,9 +7,9 @@ require 'webmock/minitest'
 Ones.configure do |config|
   config.default_client_id     = 'some_client_id'
   config.default_client_secret = 'this_is_a_client_secret'
-  config.app_center_base_url   = 'http://localhost:3001'
+  config.app_center_base_url   = 'http://localhost:3002/project/api/project/'
 
-  config.api_base_url          = 'http://localhost:3002'
+  config.api_base_url          = 'http://localhost:3002/project/api/'
 
   config.http_timeout_options  = { write: 2, connect: 5, read: 15 }
 end

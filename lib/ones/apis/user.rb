@@ -20,7 +20,7 @@ module Ones
       end
 
       def queue_list(team_uuid)
-        get "project/api/project/team/#{team_uuid}/queues/list"
+        get "project/team/#{team_uuid}/queues/list"
       end
     end
   end

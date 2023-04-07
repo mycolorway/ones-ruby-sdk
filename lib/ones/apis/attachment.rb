@@ -3,7 +3,7 @@ module Ones
     module Attachment
       # 上传资源
       def create(team_uuid, params = {}, header = {})
-        post "project/api/project/team/#{team_uuid}/res/attachments/upload", {
+        post "project/team/#{team_uuid}/res/attachments/upload", {
           type: :attachment,
           ref_type: params[:ref_type].presence || :app,
           ref_id: params[:ref_id].presence || client_id,
@@ -34,9 +34,9 @@ module Ones
       def fetch(team_uuid, attachment_uuid, header = {})
         base_query = header.delete(:params) || {}
         attachment_url = if base_query.present?
-                           "project/api/project/team/#{team_uuid}/res/attachment/#{attachment_uuid}?#{base_query.to_query}"
+                           "project/team/#{team_uuid}/res/attachment/#{attachment_uuid}?#{base_query.to_query}"
                          else
-                           "project/api/project/team/#{team_uuid}/res/attachment/#{attachment_uuid}"
+                           "project/team/#{team_uuid}/res/attachment/#{attachment_uuid}"
                          end
         get attachment_url, header
       end

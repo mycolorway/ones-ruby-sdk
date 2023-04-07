@@ -24,10 +24,10 @@ Ones.configure do |config|
   # Ones 应用中心配置
   config.default_client_id     = 'xxx' # 应用 client ID
   config.default_client_secret = 'xxx' # 应用 client secret
-  config.app_center_base_url   = 'http://localhost:3001' # Ones 应用中心 API 地址
+  config.app_center_base_url   = 'http://localhost:3001/project/api/project/' # Ones 应用中心 API 地址
 
   # Ones API 配置
-  config.api_base_url          = 'http://localhost:3001' # Ones API 地址
+  config.api_base_url          = 'http://localhost:3001/project/api/' # Ones API 地址
 
   # 公共配置
   config.http_timeout_options  = { write: 2, connect: 5, read: 15 } # 请求的 timeout 参数（非必需）

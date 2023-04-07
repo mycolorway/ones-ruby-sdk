@@ -27,7 +27,7 @@ module Ones
       # 当前团队的 Wiki 配置
       # 主要关注：wps_config、wiz_config、wiki_config
       def stamps_data(org_uuid)
-        post "project/api/project/organization/#{org_uuid}/stamps/data",
+        post "project/organization/#{org_uuid}/stamps/data",
              { "org_configs": 0 },
              { params: { t: :organization } }
       end
