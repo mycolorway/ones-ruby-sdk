@@ -12,6 +12,7 @@ Ones.configure do |config|
   config.api_base_url          = 'http://localhost:3002/project/api/'
 
   config.http_timeout_options  = { write: 2, connect: 5, read: 15 }
+  config.http_proxy_uri        = 'https://username:password@proxy.example.com:8080'
 end
 
 $ones_api = Ones::Api.new(client_id: :user_id, client_secret: :user_token, mode: :api)

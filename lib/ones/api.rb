@@ -13,17 +13,18 @@ module Ones
     api_mount 'wiki/space'
     api_mount 'wiki/page'
 
-    attr_reader :client_id, :client_secret, :mode, :options
+    attr_reader :client_id, :client_secret, :mode, :options, :http_proxy
 
     def initialize(options = {})
       @client_id = options.delete(:client_id) || Ones.client_id
       @client_secret = options.delete(:client_secret) || Ones.client_secret
       @mode = options.delete(:mode) || :app_center
+      @http_proxy = options.delete(:http_proxy) || Ones.http_proxy
       @options = options
     end
 
     def request
-      @request ||= "Ones::Requests::#{@mode.to_s.camelize}Request".constantize.new(self)
+      @request ||= "Ones::Requests::#{@mode.to_s.camelize}Request".constantize.new(self, http_proxy: http_proxy)
     end
 
     def get(path, headers = {})
