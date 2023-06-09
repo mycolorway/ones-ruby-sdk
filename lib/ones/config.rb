@@ -1,4 +1,5 @@
 require 'logger'
+require 'uri'
 
 module Ones
   class << self
@@ -45,9 +46,18 @@ module Ones
 
       @app_center_base_url = config.app_center_base_url.presence || raise(AppNotConfigError)
     end
+
+    def http_proxy
+      return @http_proxy if defined?(@http_proxy)
+
+      @http_proxy = if config.http_proxy_uri.present?
+                      uri = URI.parse(config.http_proxy_uri)
+                      { host: uri.host, port: uri.port, user: uri.user, password: uri.password }.compact
+                    end
+    end
   end
 
   class Config
-    attr_accessor :default_client_id, :default_client_secret, :app_center_base_url, :api_base_url, :http_timeout_options, :logger
+    attr_accessor :default_client_id, :default_client_secret, :app_center_base_url, :api_base_url, :http_timeout_options, :logger, :http_proxy_uri
   end
 end

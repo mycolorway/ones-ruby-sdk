@@ -12,9 +12,10 @@ module Ones
 
       attr_reader :client, :ssl_context, :http
 
-      def initialize(client, skip_verify_ssl = true)
+      def initialize(client, skip_verify_ssl: true, http_proxy: nil)
         @client = client
         @http = HTTP.timeout(**Ones.http_timeout_options)
+        @http = @http.via(*http_proxy.values) if http_proxy.is_a?(Hash)
         @ssl_context = OpenSSL::SSL::SSLContext.new
         @ssl_context.verify_mode = OpenSSL::SSL::VERIFY_NONE if skip_verify_ssl
       end

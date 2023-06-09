@@ -4,8 +4,8 @@ require 'ones/requests/base'
 module Ones
   module Requests
     class AppCenterRequest < Base
-      def initialize(client, skip_verify_ssl = true)
-        super(client, skip_verify_ssl)
+      def initialize(client, skip_verify_ssl: true, http_proxy: nil)
+        super(client, skip_verify_ssl: skip_verify_ssl, http_proxy: http_proxy)
         @http = @http.basic_auth(user: client.client_id, pass: client.client_secret)
       end
 
