@@ -8,6 +8,10 @@ module Ones
               uuid
               name
               statusCategory
+              status {
+                name
+                category
+              }
               issueType {
                 detailType
                 icon
