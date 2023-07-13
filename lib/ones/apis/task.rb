@@ -16,6 +16,13 @@ module Ones
                 detailType
                 icon
                 name
+                subIssueType
+              }
+              subIssueType {
+                detailType
+                icon
+                name
+                subIssueType
               }
             }
           }
