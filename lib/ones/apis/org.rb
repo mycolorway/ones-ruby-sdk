@@ -31,6 +31,14 @@ module Ones
              { "org_configs": 0 },
              { params: { t: :organization } }
       end
+
+      # 获取当前团队基础配置
+      # confi_type:
+      #   base_url: 访问域设置
+      #   smtp： 邮件发送服务设置
+      def config_data(org_uuid, config_type)
+        get "app_platform/open_api/org/#{org_uuid}/configs/#{config_type}"
+      end
     end
   end
 end
