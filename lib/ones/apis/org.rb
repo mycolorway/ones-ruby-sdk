@@ -33,11 +33,11 @@ module Ones
       end
 
       # 获取当前团队基础配置
-      # confi_type:
-      #   base_url: 访问域设置
-      #   smtp： 邮件发送服务设置
-      def config_data(org_uuid, config_type)
-        get "app_platform/open_api/org/#{org_uuid}/configs/#{config_type}"
+      # 主要关注：
+      # - base_url: 1017
+      # - smtp: 1019 1020
+      def configs_data(org_uuid)
+        get "app_platform/open_api/org/#{org_uuid}/configs"
       end
     end
   end
