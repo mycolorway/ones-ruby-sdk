@@ -20,9 +20,7 @@ module Ones
 
       def request(http_method, path, header = {}, &_block)
         base_query = header.delete(:params) || {}
-
-        ones_user_uuid = header.delete(:ones_user_uuid) || client.client_id
-        ones_auth_token = header.delete(:ones_auth_token) || client.client_secret
+        ones_bearer_token = header.delete(:ones_bearer_token) || client.client_secret
 
         url = if base_query.present?
                 URI.join(Ones.api_base_url, "#{path}?#{base_query.to_query}")
@@ -31,8 +29,7 @@ module Ones
               end
         as = header.delete(:as)
         header['Content-Type'] = 'application/json'
-        header['Ones-User-Id'] = ones_user_uuid
-        header['Ones-Auth-Token'] = ones_auth_token
+        header['Authorization'] = "Bearer #{ones_bearer_token}"
 
         with_retries RETRY_OPTIONS do |attempts|
           request_uuid = SecureRandom.uuid
@@ -40,6 +37,7 @@ module Ones
 
           Ones.logger.info "[#{request_uuid}][#{api_mode}] #{http_method.upcase} request ( #{url} ) in attempts: #{attempts}"
           Ones.logger.info "[#{request_uuid}][#{api_mode}] headers: #{header}"
+          Ones.logger.info "[#{request_uuid}][#{api_mode}] bearer token: #{ones_bearer_token}"
 
           response = yield(url, header)
 

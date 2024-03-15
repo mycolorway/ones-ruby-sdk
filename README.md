@@ -85,7 +85,7 @@ Ones::Api.default.user.departments('team_uuid', %w[xxxxyyyy aaaabbbb])
 #### 用户身份 API
 ```ruby
 # 使用用户在 ones 系统的 user_uuid 与 token 生成用户身份接口对象
-$ones_api = Ones::Api.new(client_id: 'user_uuid', client_secret: 'token', mode: :api)
+$ones_api = Ones::Api.new(client_secret: 'user_bearer_token', mode: :api)
 
 # -------------------- 组织 --------------------
 #

@@ -15,4 +15,4 @@ Ones.configure do |config|
   config.http_proxy_uri        = 'https://username:password@proxy.example.com:8080'
 end
 
-$ones_api = Ones::Api.new(client_id: :user_id, client_secret: :user_token, mode: :api)
+$ones_api = Ones::Api.new(client_secret: :user_token, mode: :api)

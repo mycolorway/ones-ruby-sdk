@@ -3,7 +3,7 @@ require 'test_helper'
 module Apis
   class AttachmentTest < Minitest::Test
     def setup
-      @api = Ones::Api.new(client_id: 'user_uuid', client_secret: 'user_access_token', mode: :api)
+      @api = Ones::Api.new(client_secret: 'user_bearer_token', mode: :api)
       @resource_uuid = 'Q1ZE77v9'
     end
 
@@ -18,7 +18,7 @@ module Apis
       }
 
       stub_request(:post, %r[/project/api/project/team/team_uuid/res/attachments/upload])
-        .with(headers: { 'Ones-Auth-Token': 'user_access_token', 'Ones-User-Id': 'user_uuid' })
+        .with(headers: { 'Authorization' => "Bearer user_bearer_token" })
         .to_return(status: 200, body: response_body.to_json)
       result = @api.attachment.create('team_uuid', { name: 'example.ppt', hash: 'FhafioiyVcbR2ORJG1lPWlTqT8Tn' })
 
@@ -37,12 +37,12 @@ module Apis
         "size_limit": 314572800
       }
       stub_request(:post, %r[/project/api/project/team/team_uuid/res/attachments/upload])
-        .with(headers: { 'Ones-Auth-Token': 'another_ones_auth_token', 'Ones-User-Id': 'another_user_uuid' })
+        .with(headers: { 'Authorization' => "Bearer another_ones_bearer_token" })
         .to_return(status: 200, body: response_body.to_json)
       result = @api.attachment.create(
         'team_uuid',
         { name: 'example.ppt', hash: 'FhafioiyVcbR2ORJG1lPWlTqT8Tn' },
-        { ones_user_uuid: 'another_user_uuid', ones_auth_token: 'another_ones_auth_token' }
+        { ones_bearer_token: 'another_ones_bearer_token' }
       )
 
       assert_equal 'Q1ZE77v9', result.data.dig('resource_uuid')
@@ -75,7 +75,7 @@ module Apis
       }
 
       stub_request(:get, %r[/project/api/project/team/team_uuid/res/attachment/Q1ZE77v9])
-        .with(headers: { 'Ones-Auth-Token': 'user_access_token', 'Ones-User-Id': 'user_uuid' })
+        .with(headers: { 'Authorization' => "Bearer user_bearer_token" })
         .to_return(status: 200, body: response_body.to_json)
 
       result = @api.attachment.fetch('team_uuid', @resource_uuid)
@@ -92,10 +92,10 @@ module Apis
       }
 
       stub_request(:get, %r[/project/api/project/team/team_uuid/res/attachment/Q1ZE77v9])
-        .with(headers: { 'Ones-Auth-Token': 'another_ones_auth_token', 'Ones-User-Id': 'another_user_uuid' })
+        .with(headers: { 'Authorization' => "Bearer another_ones_bearer_token" })
         .to_return(status: 200, body: response_body.to_json)
 
-      result = @api.attachment.fetch('team_uuid', @resource_uuid, { ones_user_uuid: 'another_user_uuid', ones_auth_token: 'another_ones_auth_token' })
+      result = @api.attachment.fetch('team_uuid', @resource_uuid, { ones_bearer_token: 'another_ones_bearer_token' })
       assert_equal 'http://7xshmn.com1.z0.glb.clouddn.com/FhafioiyVcbR2ORJG1lPWlTqT8Tn', result.data.dig('url')
     end
   end
